@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">🎓 Student Performance Predictor</h1>
+            <p class="subtitle">AI-powered academic success prediction system</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" onclick="showSection('predictor')">
+                📊 Predictor
+            </button>
+            <button class="nav-btn" onclick="showSection('dashboard')">
+                📈 Dashboard
+            </button>
+        </nav>
+
+        <!-- Predictor Section -->
+        <section id="predictor" class="section active">
+            <div class="prediction-container">
+                <div class="form-container">
+                    <h2 class="section-title">Enter Student Information</h2>
+                    <form id="predictionForm" class="prediction-form">
+                        <div class="form-group">
+                            <label for="hours_study">Study Hours per Week</label>
+                            <input type="number" id="hours_study" name="hours_study" 
+                                   min="0" max="50" step="0.5" required>
+                            <span class="input-hint">Hours spent studying weekly</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="attendance">Attendance Percentage</label>
+                            <input type="number" id="attendance" name="attendance" 
+                                   min="0" max="100" step="1" required>
+                            <span class="input-hint">Percentage of classes attended</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="previous_score">Previous Exam Score</label>
+                            <input type="number" id="previous_score" name="previous_score" 
+                                   min="0" max="100" step="1" required>
+                            <span class="input-hint">Last exam score (0-100)</span>
+                        </div>
+
+                        <button type="submit" class="predict-btn">
+                            <span>🔮 Predict Performance</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="result-container" id="resultContainer">
+                    <div class="result-card">
+                        <h3>Prediction Result</h3>
+                        <div class="result-content">
+                            <div class="prediction-badge" id="predictionBadge">
+                                <span id="predictionText">-</span>
+                            </div>
+                            <div class="confidence-score">
+                                <span class="confidence-label">Confidence:</span>
+                                <span class="confidence-value" id="confidenceValue">-%</span>
+                            </div>
+                            <div class="model-accuracy">
+                                <span class="accuracy-label">Model Accuracy:</span>
+                                <span class="accuracy-value" id="accuracyValue">-%</span>
+                            </div>
+                            <div class="probability-details">
+                                <span class="probability-label">Pass Probability:</span>
+                                <span class="probability-value" id="probabilityValue">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <h2 class="section-title">Performance Analytics Dashboard</h2>
+            
+            <div class="dashboard-grid">
+                <!-- Pass/Fail Distribution -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Pass vs Fail Distribution</h3>
+                    <canvas id="passFailChart"></canvas>
+                </div>
+
+                <!-- Attendance Performance -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Attendance vs Performance</h3>
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+
+                <!-- Study Hours Performance -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Study Hours vs Performance</h3>
+                    <canvas id="studyHoursChart"></canvas>
+                </div>
+
+                <!-- Feature Importance -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Feature Importance</h3>
+                    <canvas id="featureChart"></canvas>
+                </div>
+
+                <!-- Scatter Plot -->
+                <div class="chart-container full-width">
+                    <h3 class="chart-title">Study Hours vs Previous Score</h3>
+                    <canvas id="scatterChart"></canvas>
+                </div>
+
+                <!-- Model Stats -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <h4>Model Accuracy</h4>
+                        <span class="stat-value" id="dashboardAccuracy">-%</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Total Students</h4>
+                        <span class="stat-value" id="totalStudents">-</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Pass Rate</h4>
+                        <span class="stat-value" id="passRate">-%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

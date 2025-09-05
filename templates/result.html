@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Student Performance Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">🎓 Prediction Result</h1>
+            <p class="subtitle">Student Performance Analysis</p>
+        </header>
+
+        <div class="result-container">
+            <div class="result-card">
+                <div class="prediction-result">
+                    <div class="prediction-badge {{ result_class }}">
+                        <span class="prediction-text">{{ prediction }}</span>
+                        <span class="confidence-text">{{ confidence }}% Confidence</span>
+                    </div>
+                </div>
+
+                <div class="result-details">
+                    <h3>Detailed Analysis</h3>
+                    
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Pass Probability:</span>
+                            <span class="detail-value pass">{{ probability_pass }}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fail Probability:</span>
+                            <span class="detail-value fail">{{ probability_fail }}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Model Accuracy:</span>
+                            <span class="detail-value">{{ model_accuracy }}%</span>
+                        </div>
+                    </div>
+
+                    <div class="input-summary">
+                        <h4>Input Summary</h4>
+                        <div class="summary-grid">
+                            <div class="summary-item">
+                                <span class="summary-icon">📚</span>
+                                <div>
+                                    <strong>Study Hours:</strong>
+                                    <span>{{ input_data.hours_study }} hours/week</span>
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-icon">📅</span>
+                                <div>
+                                    <strong>Attendance:</strong>
+                                    <span>{{ input_data.attendance }}%</span>
+                                </div>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-icon">📊</span>
+                                <div>
+                                    <strong>Previous Score:</strong>
+                                    <span>{{ input_data.previous_score }}/100</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if result_class == 'fail' %}
+                    <div class="recommendation">
+                        <h4>📋 Recommendations</h4>
+                        <ul>
+                            {% if input_data.hours_study < 10 %}
+                            <li>Increase study hours to at least 10-15 hours per week</li>
+                            {% endif %}
+                            {% if input_data.attendance < 80 %}
+                            <li>Improve class attendance to above 80%</li>
+                            {% endif %}
+                            {% if input_data.previous_score < 70 %}
+                            <li>Focus on understanding fundamental concepts</li>
+                            {% endif %}
+                            <li>Consider additional tutoring or study groups</li>
+                            <li>Meet with academic advisor for personalized guidance</li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <div class="recommendation success">
+                        <h4>🎉 Great Work!</h4>
+                        <ul>
+                            <li>Continue maintaining current study habits</li>
+                            <li>Keep up the excellent attendance record</li>
+                            <li>Consider helping peers who might be struggling</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="action-buttons">
+                    <a href="/" class="btn btn-primary">
+                        <span>🔄 Make Another Prediction</span>
+                    </a>
+                    <button onclick="window.print()" class="btn btn-secondary">
+                        <span>🖨️ Print Result</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 Student Performance Predictor. Powered by Machine Learning.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
