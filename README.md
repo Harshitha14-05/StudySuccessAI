@@ -41,15 +41,15 @@ The application uses a CSV dataset with the following columns:
 
 ## Installation & Setup
 
-1. **Install Dependencies**:
-   ```bash
-   npm install
-   ```
+# 1. Install dependencies
+pip install -r requirements.txt
 
-2. **Start the Application**:
-   ```bash
-   npm start
-   ```
+# 2. Train the model
+python train_model.py
+
+# 3. Run the Flask app
+python app.py
+
 
 3. **Access the Application**:
    Open your browser to `http://localhost:3000`
